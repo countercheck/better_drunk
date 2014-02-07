@@ -1,0 +1,20 @@
+<h1>search the licbo</h1>
+
+<%= form_tag products_search_path, method: "get" do  %>
+  <%= label_tag :search %>
+  <%= text_field_tag :search %>
+  <%= submit_tag %>
+<% end %>
+
+
+<% if @results %>
+<p><%= link_to "Next Page", products_search_path(page: @results['pager']['next_page'], search: @results[:search])%></p>
+<p><%= link_to "Previous Page", products_search_path(page: @results['pager']['previous_page']) %></p>
+
+  <% @results['result'].each do |product| %>
+    <h3><%= link_to product['name'], product_path(product) %></h3>
+    <p><%= product['tertiary_category'] %></p>
+    <p><%= product['tasting_note'] %></p>
+    <p><%= product['serving_suggestion'] %></p>
+  <% end %>
+<% end %>
